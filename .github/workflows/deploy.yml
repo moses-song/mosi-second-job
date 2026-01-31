@@ -38,12 +38,11 @@ jobs:
           npm run build
           
       - name: Deploy to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
+        uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_KEY }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: mosi-second-job
-          directory: digital-health-cartoon/frontend/dist
+          command: pages deploy digital-health-cartoon/frontend/dist --project-name=mosi-second-job
           
       - name: Commit and push if changes
         run: |
