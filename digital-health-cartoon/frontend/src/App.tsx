@@ -29,7 +29,7 @@ function App() {
   const handleGenerateCartoon = async () => {
     setLoading(true)
     try {
-      const response = await fetch('http://localhost:3001/api/cartoons/generate', {
+      const response = await fetch('https://digital-health-cartoon-api.moses-song.workers.dev/api/cartoon/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' }
       })
