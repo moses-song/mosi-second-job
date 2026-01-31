@@ -43,8 +43,6 @@ function App() {
         throw new Error(`HTTP error! status: ${response.status}`)
       }
       
-      const data = await response.json()
-      
       // Parse Gemini response and create cartoon
       const cartoon: Cartoon = {
         id: Date.now().toString(),
