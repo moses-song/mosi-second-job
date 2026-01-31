@@ -29,7 +29,7 @@ function App() {
   const handleGenerateCartoon = async () => {
     setLoading(true)
     try {
-      const response = await fetch('https://mosi-second-job-api.moses-song.workers.dev/api/cartoon/generate', {
+      const response = await fetch('https://digital-health-cartoon-api.moses-song.workers.dev/api/cartoon/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
