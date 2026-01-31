@@ -29,7 +29,12 @@ function App() {
   const handleGenerateCartoon = async () => {
     setLoading(true)
     try {
-      const response = await fetch('https://mosi-second-job2-api.moses-song.workers.dev/api/cartoon/generate', {
+      // 일단 API 없이 기본 카툰 표시
+      const response = { ok: true }
+      
+      // if (!response.ok) {
+      //   throw new Error(`HTTP error! status: ${response.status}`)
+      // }
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
