@@ -40,7 +40,7 @@ jobs:
 
       - name: Deploy to Pages
         run: |
-          wrangler pages deploy digital-health-cartoon/frontend/dist --project-name=mosi-second-job --compatibility-date=2024-01-01
+          wrangler pages deploy digital-health-cartoon/frontend/dist --project-name=mosi-second-job
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
