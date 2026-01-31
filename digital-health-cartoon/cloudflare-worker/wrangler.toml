@@ -1,10 +1,8 @@
-{
-  "name": "digital-health-cartoon-api",
-  "main": "src/index.js",
-  "compatibility_date": "2024-01-01",
-  "compatibility_flags": ["nodejs_compat"],
-  "vars": {
-    "GEMINI_API_KEY": "AIzaSyBPFlxm8zvR7aHqS-1Tfuh5Ps24MRMs8Q8",
-    "YOUTUBE_API_KEY": "AIzaSyDAMWthh8vcjvjuBS2lZHwzp_NCR5xrKUk"
-  }
-}
+name = "digital-health-cartoon-api"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+GEMINI_API_KEY = "AIzaSyBPFlxm8zvR7aHqS-1Tfuh5Ps24MRMs8Q8"
+YOUTUBE_API_KEY = "AIzaSyDAMWthh8vcjvjuBS2lZHwzp_NCR5xrKUk"
