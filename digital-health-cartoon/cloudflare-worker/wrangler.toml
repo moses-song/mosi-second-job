@@ -1,4 +1,4 @@
-name = "digital-health-cartoon-api"
+name = "mosi-second-job2-api"
 main = "src/index.js"
 compatibility_date = "2024-01-01"
 compatibility_flags = ["nodejs_compat"]
