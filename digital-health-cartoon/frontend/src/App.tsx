@@ -30,23 +30,6 @@ function App() {
     setLoading(true)
     try {
       // 일단 API 없이 기본 카툰 표시
-      const response = { ok: true }
-      
-      // if (!response.ok) {
-      //   throw new Error(`HTTP error! status: ${response.status}`)
-      // }
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          topic: 'digital healthcare trends',
-          audience: 'general audience',
-          length: 4
-        })
-      })
-      
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
-      }
       
       // Parse Gemini response and create cartoon
       const cartoon: Cartoon = {
