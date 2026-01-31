@@ -8,6 +8,10 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    name: Deploy to Cloudflare Pages
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -34,3 +38,4 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: mosi-second-job
           directory: digital-health-cartoon/frontend/dist
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
