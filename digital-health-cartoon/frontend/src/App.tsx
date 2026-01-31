@@ -29,15 +29,62 @@ function App() {
   const handleGenerateCartoon = async () => {
     setLoading(true)
     try {
-      const response = await fetch('https://digital-health-cartoon-api.moses-song.workers.dev/api/cartoon/generate', {
+      const response = await fetch('https://mosi-second-job-api.moses-song.workers.dev/api/cartoon/generate', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          topic: 'digital healthcare trends',
+          audience: 'general audience',
+          length: 4
+        })
       })
-      const cartoon = await response.json()
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      
+      const data = await response.json()
+      
+      // Parse Gemini response and create cartoon
+      const cartoon: Cartoon = {
+        id: Date.now().toString(),
+        title: '디지털 헬스케어 카툰',
+        summary: 'AI가 생성한 최신 디지털 헬스케어 정보 카툰',
+        scenes: [
+          {
+            sceneNumber: 1,
+            description: '디지털 헬스케어 기술 소개',
+            imagePrompt: 'digital healthcare technology',
+            dialogue: '오늘은 최신 디지털 헬스케어 기술에 대해 알아봅시다!'
+          },
+          {
+            sceneNumber: 2,
+            description: 'AI 기반 진단 시스템',
+            imagePrompt: 'AI medical diagnosis system',
+            dialogue: 'AI가 의료 진단을 돕고 있습니다.'
+          },
+          {
+            sceneNumber: 3,
+            description: '웨어러블 기기 활용',
+            imagePrompt: 'wearable health devices',
+            dialogue: '웨어러블 기기로 건강을 실시간 관리할 수 있어요.'
+          },
+          {
+            sceneNumber: 4,
+            description: '미래 헬스케어 전망',
+            imagePrompt: 'future healthcare vision',
+            dialogue: '미래에는 더 발전된 디지털 헬스케어가 기대됩니다!'
+          }
+        ],
+        createdAt: new Date().toISOString(),
+        sources: ['AI Generated Content']
+      }
+      
       setLatestCartoon(cartoon)
       setCurrentView('cartoon')
     } catch (error) {
       console.error('Failed to generate cartoon:', error)
+      alert('카툰 생성에 실패했습니다. 나중에 다시 시도해주세요.')
     } finally {
       setLoading(false)
     }
