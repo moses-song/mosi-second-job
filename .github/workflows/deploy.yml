@@ -44,7 +44,6 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: mosi-second-job
           directory: digital-health-cartoon/frontend/dist
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Commit and push if changes
         run: |
