@@ -22,5 +22,5 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: deploy
+          command: deploy digital-health-cartoon/cloudflare-worker/src/index.js
           configPath: digital-health-cartoon/cloudflare-worker/wrangler.toml
