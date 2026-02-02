@@ -1,36 +1,14 @@
-// Define Env interface for the worker
-interface Env {
-  YOUTUBE_API_KEY: string;
-  GEMINI_API_KEY: string;
-}
-
-// Helper interfaces and functions for News Service
-interface YoutubeVideo {
-  title: string;
-  description: string;
-  link: string;
-  publishedAt: string;
-  thumbnail: string;
-}
-
-interface NewsItem {
-  title: string;
-  content: string;
-  link: string;
-  publishedAt: string;
-}
-
-async function fetchHealthNews(env: Env, query: string = '디지털 헬스케어 뉴스'): Promise<NewsItem[]> {
+async function fetchHealthNews(env, query = '디지털 헬스케어 뉴스') {
   try {
     const response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&type=video&maxResults=10&key=${env.YOUTUBE_API_KEY}`);
-    const data: any = await response.json();
+    const data = await response.json();
 
     if (!response.ok) {
       console.error('Error fetching YouTube health news:', data);
       return [];
     }
 
-    const videos: YoutubeVideo[] = data.items.map((item: any) => ({
+    const videos = data.items.map((item) => ({
       title: item.snippet.title,
       description: item.snippet.description,
       link: `https://www.youtube.com/watch?v=${item.id.videoId}`,
@@ -45,13 +23,13 @@ async function fetchHealthNews(env: Env, query: string = '디지털 헬스케어
       publishedAt: video.publishedAt,
     }));
 
-  } catch (error: any) { // Catch as 'any' for worker context
+  } catch (error) {
     console.error('Error fetching YouTube health news:', error);
     return [];
   }
 }
 
-function filterDigitalHealthNews(news: NewsItem[]): NewsItem[] {
+function filterDigitalHealthNews(news) {
   const keywords = ['디지털 헬스케어', 'AI 의료', '원격 진료', '스마트 헬스케어', '웨어러블'];
   return news.filter(item => 
     keywords.some(keyword => 
@@ -112,10 +90,10 @@ export default {
     // Health cartoon generation endpoint
     if (url.pathname === '/api/cartoon/generate' && request.method === 'POST') {
       try {
-        let requestBody: { query?: string };
+        let requestBody;
         try {
             requestBody = await request.json();
-        } catch (jsonError: any) {
+        } catch (jsonError) {
             console.error('Error parsing request JSON:', jsonError);
             return new Response(JSON.stringify({ error: 'Invalid JSON in request body.' }), {
                 status: 400,
@@ -190,7 +168,7 @@ export default {
         let cartoonData;
         try {
             cartoonData = JSON.parse(geminiResponse.candidates[0].content.parts[0].text);
-        } catch (parseError: any) {
+        } catch (parseError) {
             console.error('Error parsing Gemini response:', parseError, geminiResponse.candidates[0].content.parts[0].text);
             return new Response(JSON.stringify({ error: 'Failed to parse Gemini response for cartoon data.' }), {
                 status: 500,
@@ -211,7 +189,7 @@ export default {
         return new Response(JSON.stringify(cartoon), {
           headers: { ...corsHeaders, 'Content-Type': 'application/json' }
         });
-      } catch (error: any) {
+      } catch (error) {
         console.error('Error generating cartoon:', error);
         return new Response(JSON.stringify({ error: 'Failed to generate cartoon', details: error.message }), {
           status: 500,

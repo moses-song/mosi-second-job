@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 interface CartoonGeneratorProps {
   onGenerate: (query: string) => void
   loading: boolean
