@@ -26,11 +26,15 @@ function App() {
   const [latestCartoon, setLatestCartoon] = useState<Cartoon | null>(null)
   const [loading, setLoading] = useState(false)
 
-  const handleGenerateCartoon = async () => {
-    setLoading(true);
+  const handleGenerateCartoon = async (query: string) => {
+    setLoading(true)
     try {
-      const response = await fetch('/api/cartoons/generate', {
+      const response = await fetch('/api/cartoon/generate', {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ query }), // Send the query in the request body
       });
 
       if (!response.ok) {
@@ -39,15 +43,15 @@ function App() {
 
       const cartoon: Cartoon = await response.json();
       
-      setLatestCartoon(cartoon);
-      setCurrentView('cartoon');
+      setLatestCartoon(cartoon)
+      setCurrentView('cartoon')
     } catch (error) {
-      console.error('Failed to generate cartoon:', error);
-      alert('카툰 생성에 실패했습니다. 나중에 다시 시도해주세요.');
+      console.error('Failed to generate cartoon:', error)
+      alert('카툰 생성에 실패했습니다. 나중에 다시 시도해주세요.')
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
@@ -85,19 +89,19 @@ function App() {
         </div>
       </nav>
 
-      <main className="max-w-7xl mx-auto p-6">
+      <main className="max-w-7xl mx-auto p-6 lg:p-8">
         {currentView === 'home' && (
-          <div className="text-center py-12">
-            <h2 className="text-4xl font-bold text-gray-800 mb-8">
-              오늘의 디지털 헬스케어 이슈
+          <div className="py-8 lg:py-12">
+            <h2 className="text-4xl font-extrabold text-gray-900 text-center mb-8 lg:mb-12">
+              새로운 카툰 생성하기
             </h2>
             <CartoonGenerator 
               onGenerate={handleGenerateCartoon} 
               loading={loading} 
             />
             {latestCartoon && (
-              <div className="mt-8">
-                <h3 className="text-2xl font-semibold mb-4">최신 카툰</h3>
+              <div className="mt-12 p-6 bg-white rounded-lg shadow-lg">
+                <h3 className="text-3xl font-bold text-indigo-900 mb-6 border-b pb-4">최신 생성 카툰</h3>
                 <CartoonViewer cartoon={latestCartoon} />
               </div>
             )}
