@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "include": [
+    "/*"
+  ],
+  "exclude": [
+    "/api/*"
+  ],
+  "routes": [
+    {
+      "pattern": "/api/*",
+      "customService": {
+        "name": "mosi-second-job2-api",
+        "environment": "production"
+      }
+    }
+  ]
+}
