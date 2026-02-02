@@ -69,39 +69,18 @@ export default {
 
         const geminiResponse = await response.json();
         
+        // Extract the JSON string from the response
+        const jsonString = geminiResponse.candidates[0].content.parts[0].text;
+        const cartoonData = JSON.parse(jsonString);
+
         // Create a structured cartoon response
         const cartoon = {
           id: Date.now().toString(),
-          title: '디지털 헬스케어 카툰',
-          summary: 'AI가 생성한 최신 디지털 헬스케어 정보 카툰',
-          scenes: [
-            {
-              sceneNumber: 1,
-              description: '디지털 헬스케어 기술 소개',
-              imagePrompt: 'digital healthcare technology',
-              dialogue: '오늘은 최신 디지털 헬스케어 기술에 대해 알아봅시다!'
-            },
-            {
-              sceneNumber: 2,
-              description: 'AI 기반 진단 시스템',
-              imagePrompt: 'AI medical diagnosis system',
-              dialogue: 'AI가 의료 진단을 돕고 있습니다.'
-            },
-            {
-              sceneNumber: 3,
-              description: '웨어러블 기기 활용',
-              imagePrompt: 'wearable health devices',
-              dialogue: '웨어러블 기기로 건강을 실시간 관리할 수 있어요.'
-            },
-            {
-              sceneNumber: 4,
-              description: '미래 헬스케어 전망',
-              imagePrompt: 'future healthcare vision',
-              dialogue: '미래에는 더 발전된 디지털 헬스케어가 기대됩니다!'
-            }
-          ],
+          title: cartoonData.title,
+          summary: cartoonData.summary,
+          scenes: cartoonData.scenes,
           createdAt: new Date().toISOString(),
-          sources: ['AI Generated Content', 'Google Gemini API']
+          sources: ['Google Gemini API']
         };
         
         return new Response(JSON.stringify(cartoon), {
